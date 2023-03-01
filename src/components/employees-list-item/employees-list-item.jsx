@@ -3,7 +3,7 @@ import "./employees-list-item.css"
 const EmployeesListItem = () => {
 	return (
 		<li className="list-group-item d-flex justify-content-between">
-			<span className="list-group-item-label">John Smith</span>
+			<span className="list-group-item-label">Джон Сміт</span>
 			<input type="text" className="list-group-item-input" defaultValue="1000$" />
 			<div className='d-flex justify-content-center align-items-center'>
 				<button type="button"
