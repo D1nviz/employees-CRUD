@@ -6,7 +6,7 @@ class EmployeesListItem  extends Component {
 		super (props);
 		this.state = {
 			increase: false,
-			like: false
+			like: false,
 		}
 
 	}
@@ -17,23 +17,21 @@ class EmployeesListItem  extends Component {
 		}))
 	}
 	
-	setFavourite = () =>{
+	setFavourite = () => {
 		this.setState(({like}) => ({
 			like: !like
 		}))
 	}
 
 	render () {
-		const {name, salary} = this.props;
+		const {name, salary, onDelete} = this.props;
 		const {increase, like} = this.state;
 
 		let classNames = "list-group-item d-flex justify-content-between";
-		if(increase) {
-			classNames += " increase" 
-		}
-		if(like) {
-			classNames += " like" 
-		}
+
+		classNames += increase ? " increase": "";
+		classNames += like ? " like": "";
+		
 		return (
 			<li className= {classNames}>
 				<span className="list-group-item-label"
@@ -42,12 +40,13 @@ class EmployeesListItem  extends Component {
 				<div className='d-flex justify-content-center align-items-center'>
 					<button type="button"
 						className="btn-cookie btn-sm "
-					onClick={() => this.setPromotion(increase)}>
+						onClick={() => this.setPromotion(increase)}>
 						<i className="fas fa-cookie"></i>
 					</button>
 	
 					<button type="button"
-						className="btn-trash btn-sm ">
+						className="btn-trash btn-sm "
+						onClick = {onDelete}>
 						<i className="fas fa-trash"></i>
 					</button>
 					<i className="fas fa-star"></i>
@@ -60,3 +59,5 @@ class EmployeesListItem  extends Component {
 };
 
 export default EmployeesListItem;
+
+
