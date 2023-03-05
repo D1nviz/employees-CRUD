@@ -1,18 +1,18 @@
 import "./employees-list-item.css"
 
 const EmployeesListItem = (props) => {
-	const {name, salary, onDelete, onToggleIncrease, onToggleLike, increase, like} = props;
+	const { name, salary, onDelete, onToggleIncrease, onToggleLike, increase, like } = props;
 
 
 	let classNames = "list-group-item d-flex justify-content-between";
 
-	classNames += increase ? " increase": "";
-	classNames += like ? " like": "";
+	classNames += increase ? " increase" : "";
+	classNames += like ? " like" : "";
 
 	return (
-		<li className= {classNames}>
+		<li className={classNames}>
 			<span className="list-group-item-label"
-			onClick={onToggleLike}>{name}</span>
+				onClick={onToggleLike}>{name}</span>
 			<input type="text" className="list-group-item-input" defaultValue={salary + "$"} />
 			<div className='d-flex justify-content-center align-items-center'>
 				<button type="button"
@@ -23,14 +23,14 @@ const EmployeesListItem = (props) => {
 
 				<button type="button"
 					className="btn-trash btn-sm "
-					onClick = {onDelete}>
+					onClick={onDelete}>
 					<i className="fas fa-trash"></i>
 				</button>
 				<i className="fas fa-star"></i>
 			</div>
 		</li>
 	);
-	};
+};
 
 export default EmployeesListItem;
 
