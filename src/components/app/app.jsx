@@ -14,53 +14,82 @@ class App extends Component {
     super(props);
     this.state = {
       data: [
-        {name: "Беата Я.", salary: 20_000, increase: true, id: 0},
-        {name: "Андрій М.", salary: 1100, increase: false, id: 1},
-        {name: "Юлія Ф.", salary: 900, increase: false, id: 2},
-        {name: "Макс Б.", salary: 800, increase: false, id: 3},
-      
-      ] 
+        { name: "Беата Я.", salary: 20_000, increase: true, rise: true, id: 0 },
+        { name: "Андрій М.", salary: 1100, increase: false, rise: false, id: 1 },
+        { name: "Юлія Ф.", salary: 900, increase: false, rise: false, id: 2 },
+        { name: "Макс Б.", salary: 800, increase: false, rise: false, id: 3 },
+
+      ]
     }
     this.maxId = this.state.data.length;
   }
 
   deleteItem = (id) => {
-    this.setState(({data}) => {
+    this.setState(({ data }) => {
       return {
-        data: data.filter( item => item.id !== id)
+        data: data.filter(item => item.id !== id)
       }
     })
   }
   addItem = (name, salary) => {
-    const newItem = {name, salary, increase: false, id: this.maxId++}
-    this.setState(({data}) => {
+    const newItem = { 
+      name,
+      salary, 
+      increase: false, 
+      rise: false, 
+      id: this.maxId++ 
+    }
+
+    this.setState(({ data }) => {
       return {
         data: [...data, newItem]
       }
-      
-    })
+
+    });
+
+  }
+
+  onToggleIncrease = (id) => {
+    this.setState(({data}) => ({
+      data: data.map(item => {
+        return item.id === id ?{...item, increase: !item.increase} : item
+      })
+    }))
     
   }
-    
+
+  onToggleLike = (id) => {
+    this.setState(({data}) => ({
+      data: data.map(item => {
+        return item.id === id ?{...item, like: !item.like} : item
+      })
+    }))
+  }
+
   render() {
-    const {data} = this.state;
+    const { data } = this.state;
+    const employeeCount = this.maxId;
+    const employeeCountIncrease = data.filter(x=> x.increase)
     return (
       <div className="app">
-        <AppInfo />
+        <AppInfo employeeCount = {employeeCount}
+        employeeCountIncrease = {employeeCountIncrease} />
         <div className="search-panel">
           <SearchPanel />
           <AppFilter />
         </div>
-  
-        <EmployeesList 
-          data = {data} 
-          onDelete = {this.deleteItem}/>
-        <EmployeesAddForm 
-          onAdd = {this.addItem}/>
+
+        <EmployeesList
+          data={data}
+          onDelete={this.deleteItem}
+          onToggleIncrease={this.onToggleIncrease}
+          onToggleLike={this.onToggleLike} />
+        <EmployeesAddForm
+          onAdd={this.addItem} />
       </div>
     );
   }
-  
+
 }
 
 export default App;

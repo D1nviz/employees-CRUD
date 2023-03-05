@@ -1,12 +1,13 @@
 import "./app-info.css";
 
 const companyName = "Dinviz"
-const AppInfo = () => {
+const AppInfo = (props) => {
+	const {employeeCount, employeeCountIncrease} = props;
 	return (
 		<div className="app-info">
-			<h1>Облік співробітників у компанії {companyName}</h1>
-			<h2>Загальна кількість працівників: 3</h2>
-			<h2>Премію отримають: 2</h2>
+			<h1>Облік співробітників у компанії "{companyName}"</h1>
+			<h2>Загальна кількість працівників: {employeeCount}</h2>
+			<h2>Премію отримають:{employeeCountIncrease.length}</h2>
 		</div>
 	);
 };
