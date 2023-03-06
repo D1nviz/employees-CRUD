@@ -27,6 +27,12 @@ class EmployeesAddForm extends Component {
 
 	render() {
 		const { name, salary } = this.state;
+		const {notValidForm} = this.props;
+		
+		
+		let classNames = notValidForm ? " incorrect-form" :" incorrect-form hide";
+		let inputBorderColor = notValidForm ? " form-control new-post-label input-border-color" :" form-control new-post-label";
+
 		return (
 			<div className="app-add-form">
 				<h3>Додайте нового співробітника</h3>
@@ -34,13 +40,13 @@ class EmployeesAddForm extends Component {
 					onSubmit={this.onSubmit}
 					className="add-form d-flex">
 					<input type="text"
-						className="form-control new-post-label"
+						className={inputBorderColor}
 						placeholder="Як його звати?"
 						name="name"
 						value={name}
 						onChange={this.onValueChange} />
 					<input type="number"
-						className="form-control new-post-label"
+						className={inputBorderColor}
 						placeholder="З/П в $?"
 						name="salary"
 						value={salary}
@@ -49,6 +55,7 @@ class EmployeesAddForm extends Component {
 					<button type="submit"
 						className="btn btn-outline-light">Додати</button>
 				</form>
+				<p className={classNames}>Неправильні дані</p>
 			</div>
 		)
 	}

@@ -1,8 +1,8 @@
 import "./app-info.css";
 
-const companyName = "Dinviz"
+const companyName = "Dinviz";
 const AppInfo = (props) => {
-	const { employeeCount, employeeCountIncrease } = props;
+	let { employeeCount, employeeCountIncrease } = props;
 	return (
 		<div className="app-info">
 			<h1>Облік співробітників у компанії "{companyName}"</h1>

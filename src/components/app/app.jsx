@@ -19,9 +19,11 @@ class App extends Component {
 				{ name: "Юлія Ф.", salary: 900, increase: false, rise: false, id: 2 },
 				{ name: "Макс Б.", salary: 800, increase: false, rise: false, id: 3 },
 
-			]
+			],
+			notValidForm: false
 		}
 		this.maxId = this.state.data.length;
+		
 	}
 
 	deleteItem = (id) => {
@@ -32,21 +34,32 @@ class App extends Component {
 		})
 	}
 	addItem = (name, salary) => {
-		const newItem = {
-			name,
-			salary,
-			increase: false,
-			rise: false,
-			id: this.maxId++
-		}
-
-		this.setState(({ data }) => {
-			return {
-				data: [...data, newItem]
+		if(name.length > 3 && salary >= 100) {
+			const newItem = {
+				name,
+				salary,
+				increase: false,
+				rise: false,
+				id: this.maxId++
+				
 			}
 
-		});
-
+			this.setState({
+				notValidForm: false
+			})
+	
+			this.setState(({ data }) => {
+				return {
+					data: [...data, newItem]
+				}
+	
+			})
+		} else {
+			this.setState({
+				notValidForm: true 
+			})
+			
+		}
 	}
 
 	onToggleIncrease = (id) => {
@@ -69,7 +82,9 @@ class App extends Component {
 	render() {
 		const { data } = this.state;
 		const employeeCount = this.maxId;
-		const employeeCountIncrease = data.filter(x => x.increase)
+		const employeeCountIncrease = data.filter(x => x.increase);
+
+		
 		return (
 			<div className="app">
 				<AppInfo employeeCount={employeeCount}
@@ -84,8 +99,10 @@ class App extends Component {
 					onDelete={this.deleteItem}
 					onToggleIncrease={this.onToggleIncrease}
 					onToggleLike={this.onToggleLike} />
-				<EmployeesAddForm
-					onAdd={this.addItem} />
+					<EmployeesAddForm 
+						onAdd={this.addItem}
+						notValidForm = {this.state.notValidForm}/>
+				
 			</div>
 		);
 	}
