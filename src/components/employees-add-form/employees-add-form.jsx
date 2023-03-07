@@ -8,7 +8,8 @@ class EmployeesAddForm extends Component {
 		super(props);
 		this.state = {
 			name: '',
-			salary: ''
+			salary: '',
+			valid: true
 		}
 	}
 	onValueChange = (e) => {
@@ -18,25 +19,30 @@ class EmployeesAddForm extends Component {
 	}
 	onSubmit = (e) => {
 		e.preventDefault();
+		if (this.state.name.length < 3 || !this.state.salary) {
+			this.setState({
+				valid: false
+			})
+			return;
+		}
 		this.props.onAdd(this.state.name, this.state.salary)
-
-		if(this.props.notValidForm) {
+		
 			this.setState({
 				name: '',
-				salary: ''
+				salary: '',
+				valid: true
 			})
-		} 
-		
+			
 	}
 
 	render() {
 		const { name, salary } = this.state;
-		const {notValidForm} = this.props;
+		const {valid} = this.state;
 		
 		
-		let classNames = notValidForm ? " incorrect-form" :" incorrect-form hide";
-		let inputBorderColor = notValidForm ? " form-control new-post-label input-border-color" :" form-control new-post-label";
-
+		let classNames =  valid ?" incorrect-form hide" : " incorrect-form";
+		let inputBorderColor = valid ?" form-control new-post-label":" form-control new-post-label input-border-color" ;
+		
 		return (
 			<div className="app-add-form">
 				<h3>Додайте нового співробітника</h3>

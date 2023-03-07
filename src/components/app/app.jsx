@@ -20,9 +20,8 @@ class App extends Component {
 				{ name: "Макс Б.", salary: 800, increase: false, like: false, id: 3 },
 
 			],
-			notValidForm: false
+			term: ""
 		}
-		
 	}
 
 	deleteItem = (id) => {
@@ -33,27 +32,21 @@ class App extends Component {
 		})
 	}
 	addItem = (name, salary) => {
-		if(name.length > 2 && salary >= 100) {
-			
-	
 			this.setState(({ data }) => {
 				return {
 					data: [
 						...data,
-						{	name,
+						{
+							name,
 							salary,
 							increase: false,
 							like: false,
 							id: this.state.data.length + 1
-						}],
-					notValidForm: false
-				}})
-		} else {
-			this.setState({
-				notValidForm: true 
+						}]
+				}
 			})
-			
-		}
+		
+		
 	}
 
 	onToggleProp = (id, prop) => {
@@ -65,35 +58,44 @@ class App extends Component {
 
 	}
 
-	
+	searchEmp = (items, term) => {
+		if(term.length === 0) {
+			return items;
+		} 
+		return items.filter(item => item.name.startsWith(term))
+	}
+	onUpdateSearch = (term) => {
+		this.setState({term});
+	}
+
+
 
 	render() {
-		const { data } = this.state;
+		const { data, term } = this.state;
 		const employeeCount = this.state.data.length;
 		const employeeCountIncrease = data.filter(x => x.increase).length;
+		const visibleData = this.searchEmp(data, term);
 
-		
 		return (
 			<div className="app">
 				<AppInfo employeeCount={employeeCount}
 					employeeCountIncrease={employeeCountIncrease} />
 				<div className="search-panel">
-					<SearchPanel />
+					<SearchPanel 
+						onUpdateSearch = {this.onUpdateSearch}/>
 					<AppFilter />
 				</div>
 
 				<EmployeesList
-					data={data}
+					data={visibleData}
 					onDelete={this.deleteItem}
-					onToggleProp={this.onToggleProp}/>
-					<EmployeesAddForm 
-						onAdd={this.addItem}
-						notValidForm = {this.state.notValidForm} />
-				
-			</div>
-		);
-	}
+					onToggleProp={this.onToggleProp} />
+				<EmployeesAddForm
+					onAdd={this.addItem}/>
 
+			</div>
+		)
+	}
 }
 
 export default App;
