@@ -22,7 +22,6 @@ class App extends Component {
 			],
 			notValidForm: false
 		}
-		this.maxId = this.state.data.length;
 		
 	}
 
@@ -40,7 +39,7 @@ class App extends Component {
 				salary,
 				increase: false,
 				rise: false,
-				id: this.maxId++
+				id: this.state.data.length + 1
 				
 			}
 
@@ -81,7 +80,7 @@ class App extends Component {
 
 	render() {
 		const { data } = this.state;
-		const employeeCount = this.maxId;
+		const employeeCount = this.state.data.length;
 		const employeeCountIncrease = data.filter(x => x.increase);
 
 		
