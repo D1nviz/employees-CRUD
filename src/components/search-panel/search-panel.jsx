@@ -8,12 +8,12 @@ class SearchPanel extends Component {
 		this.state = {
 			term: ""
 		}
-		
+
 	}
 
 	onUpdateSearch = (e) => {
 		const term = e.target.value;
-		this.setState({term})
+		this.setState({ term })
 		this.props.onUpdateSearch(term)
 	}
 	render() {
@@ -22,11 +22,11 @@ class SearchPanel extends Component {
 				type="text"
 				className="form-control search-input"
 				placeholder="Знайти співробітника"
-				value = {this.state.term}
-				onChange = {this.onUpdateSearch} />
+				value={this.state.term}
+				onChange={this.onUpdateSearch} />
 		)
 	}
-		
+
 };
 
 export default SearchPanel;

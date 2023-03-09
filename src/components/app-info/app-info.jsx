@@ -1,6 +1,6 @@
 import "./app-info.css";
 
-const companyName = "Dinviz";
+const companyName = "Антикрутелики";
 const AppInfo = ({ employeeCount, employeeCountIncrease }) => {
 	return (
 		<div className="app-info">
