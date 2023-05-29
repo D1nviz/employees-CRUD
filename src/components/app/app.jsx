@@ -19,7 +19,7 @@ class App extends Component {
 				{ name: "Юлія Ф.", salary: 2000, increase: true, like: true, id: 2 },
 				{ name: "Яся Г.", salary: 2000, increase: false, like: true, id: 3 },
 				{ name: "Катя П.", salary: 2000, increase: true, like: false, id: 4 },
-				{ name: "Анегліна М.", salary: 2000, increase: false, like: true, id: 5 },
+				{ name: "Ангeліна М.", salary: 2000, increase: false, like: true, id: 5 },
 				{ name: "Макс Б.", salary: -100, increase: false, like: false, id: 6 }
 			],
 			term: "",
@@ -70,7 +70,7 @@ class App extends Component {
 		this.setState({ term });
 	}
 
-	filteredData = (data, filter) => {
+	filterData = (data, filter) => {
 		if (filter === "bigValue") {
 			return data.filter(item => item.salary > 1000)
 
@@ -83,13 +83,12 @@ class App extends Component {
 		}
 	}
 
-
 	render() {
 		const { data, term, filter } = this.state;
 		const employeeCount = this.state.data.length;
 		const employeeCountIncrease = data.filter(x => x.increase).length;
 
-		const visibleData = this.filteredData(this.searchEmp(data, term), filter);
+		const visibleData = this.filterData(this.searchEmp(data, term), filter);
 
 		return (
 			<div className="app">
